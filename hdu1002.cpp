@@ -1,24 +1,48 @@
 #include <cstdio>
+#include <cstring>
 #define max 1024
 char A[max];
 char B[max];
-char C[max];
-void BigNumAdd()
+int out[max];
+int getnum(int pos,char * s)
 {
-	:
+	int len = strlen(s);
+	if( pos>len )
+	{
+		return 0;
+	}
+	return s[len-pos]-'0';
+}
 int main()
 {
-#ifdef LOCAL
-	freopen("hdu1002.in","r",stdin);
-	freopen("hdu1002.out","w",stdout);
-#endif
 	int times;
 	scanf("%d",&times);
-	for( int i =1; i<=times; ++i)
+	int i=1;
+	while(times--)
 	{
-	       	sscanf(A,"%s",stdin);
-	       	sscanf(B,"%s",stdin);
-		BigNumAdd();
-		printf("Case %d:\n",&i);
+		scanf("%s%s",A,B);
+		printf("Case %d:\n",i++);
+		int c = 0;
+		for( int i = 1 ; i <= 1010 ; ++i )
+		{
+			int & tar =out[i];
+			int s=getnum(i, A)+getnum(i, B)+c;
+			tar=s%10;
+			c=s/10;
+		}
+		printf("%s + %s = ",A,B);
+		int i=1010;
+		while(i!=1&&!out[i]) --i;
+		for(   ; i!=0 ; --i )
+		{
+			printf("%d",out[i]);
+		}
+		printf("\n");
+		if( times )
+		{
+		printf("\n");
+		}
 
-
+	}
+}
+		
